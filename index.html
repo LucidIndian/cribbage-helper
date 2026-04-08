@@ -3,42 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cribbage EV Helper</title>
+  <title>Cribbage EV Helper – Beat Mom!</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    .card { font-size: 2.5rem; cursor: pointer; }
-    .red { color: #e63939; }
+    .card { font-size: 3.5rem; line-height: 1; }
+    .red { color: #ef4444; }
+    .big-card { font-size: 4.5rem; }
   </style>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
   <div class="max-w-6xl mx-auto p-6">
     <h1 class="text-4xl font-bold text-center mb-8">Cribbage EV Helper – Beat Mom!</h1>
 
-    <div id="deal-section" class="bg-gray-800 rounded-2xl p-8 mb-8">
-      <button onclick="dealCards()" class="bg-green-600 hover:bg-green-700 px-8 py-4 rounded-xl text-xl font-semibold w-full">
-        Deal 6 Cards
-      </button>
+    <!-- Manual Card Input Section -->
+    <div class="bg-gray-800 rounded-3xl p-8 mb-10">
+      <h2 class="text-2xl font-semibold mb-6">Enter Your 6 Cards</h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6" id="card-inputs"></div>
 
-      <div id="dealt-cards" class="grid grid-cols-6 gap-4 mt-8"></div>
+      <div class="flex gap-4">
+        <button onclick="addCardRow()" 
+                class="flex-1 bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl text-lg font-medium">
+          + Add Another Card
+        </button>
+        <button onclick="clearAllCards()" 
+                class="flex-1 bg-red-600 hover:bg-red-700 py-4 rounded-2xl text-lg font-medium">
+          Clear All
+        </button>
+        <button onclick="analyzeHand()" 
+                class="flex-1 bg-green-600 hover:bg-green-700 py-4 rounded-2xl text-lg font-semibold">
+          Calculate Best Keeps
+        </button>
+      </div>
+
+      <!-- Display selected cards -->
+      <div id="selected-cards-display" class="mt-8 flex flex-wrap gap-6 justify-center min-h-[100px]"></div>
     </div>
 
+    <!-- Results -->
     <div id="results" class="hidden">
-      <h2 class="text-2xl font-bold mb-4">Best Keeps (sorted by Expected Value)</h2>
-      <div id="keep-list" class="space-y-4"></div>
+      <h2 class="text-3xl font-bold mb-6">Best 4-Card Keeps (by Expected Value)</h2>
+      <div id="keep-list" class="space-y-6"></div>
     </div>
 
-    <div id="play-section" class="hidden mt-12 bg-gray-800 rounded-2xl p-8">
-      <h2 class="text-2xl font-bold mb-4">Play Mode – Your Hand + Cut</h2>
-      <div id="selected-hand" class="flex gap-4 mb-6"></div>
-      <button onclick="revealCut()" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl">Reveal Random Cut & Score</button>
-      <button onclick="manualCut()" class="ml-4 bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-xl">Input Cut Manually</button>
-      <div id="score-display" class="mt-8 text-xl"></div>
+    <!-- Play Section -->
+    <div id="play-section" class="hidden mt-12 bg-gray-800 rounded-3xl p-8">
+      <h2 class="text-2xl font-bold mb-6">Your Kept Hand + Cut Card</h2>
+      <div id="selected-hand" class="flex flex-wrap gap-8 mb-8"></div>
+      
+      <div class="flex gap-4">
+        <button onclick="revealCut()" 
+                class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-2xl text-xl">
+          Reveal Random Cut Card
+        </button>
+        <button onclick="manualCut()" 
+                class="bg-gray-700 hover:bg-gray-600 px-8 py-4 rounded-2xl text-xl">
+          Enter Cut Card Manually
+        </button>
+      </div>
+
+      <div id="score-display" class="mt-10 text-xl bg-gray-900 rounded-2xl p-6"></div>
     </div>
 
     <div class="mt-12 text-center text-sm text-gray-400">
-      Game score: <span id="my-score" class="font-bold text-2xl">0</span> – Mom: <span id="mom-score" class="font-bold text-2xl">0</span>
-      <button onclick="resetScores()" class="ml-4 text-xs underline">Reset scores</button>
+      Your score: <span id="my-score" class="font-bold text-3xl text-green-400">0</span>  
+      — Mom: <span id="mom-score" class="font-bold text-3xl">0</span>
+      <button onclick="resetScores()" class="ml-6 text-xs underline hover:text-white">Reset Scores</button>
     </div>
   </div>
 
