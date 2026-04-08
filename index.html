@@ -10,7 +10,6 @@
     .red { color: #ef4444; }
     .big-card { font-size: 4.5rem; }
     
-    /* Extra mobile-friendly styles for selects */
     select {
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -20,37 +19,38 @@
       background-repeat: no-repeat;
       background-size: 1.25em;
       padding-right: 2.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* Make selects taller and easier to tap on mobile */
+    select, option {
+      padding: 14px 12px;
     }
   </style>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
-  <img src="assets/IMG_3277.jpeg" width=80px>
-  <div class="max-w-6xl mx-auto p-6" bg-[url('/assets/IMG_3277.jpeg')]>
+  <div class="max-w-6xl mx-auto p-6">
     <h1 class="text-4xl font-bold text-center mb-8">Cribbage EV Helper – Beat Mom!</h1>
 
     <!-- Manual Card Input Section -->
     <div class="bg-gray-800 rounded-3xl p-6 md:p-8 mb-10">
-  <h2 class="text-2xl font-semibold mb-6">Enter Your 6 Cards</h2>
-  
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6" id="card-inputs"></div>
+      <h2 class="text-2xl font-semibold mb-6">Enter Your 6 Cards</h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8" id="card-inputs"></div>
 
-  <div class="flex flex-col sm:flex-row gap-4">
-    <button onclick="addCardRow()" 
-            class="flex-1 bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl text-lg font-medium">
-      + Add Another Card
-    </button>
-    <button onclick="clearAllCards()" 
-            class="flex-1 bg-red-600 hover:bg-red-700 py-4 rounded-2xl text-lg font-medium">
-      Clear All
-    </button>
-    <button onclick="analyzeHand()" 
-            class="flex-1 bg-green-600 hover:bg-green-700 py-4 rounded-2xl text-lg font-semibold">
-      Calculate Best Keeps
-    </button>
-  </div>
-  
-    <!-- Display selected cards -->
-    <div id="selected-cards-display" class="mt-8 flex flex-wrap gap-6 justify-center min-h-[100px]"></div>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <button onclick="clearAllCards()" 
+                class="flex-1 bg-red-600 hover:bg-red-700 py-4 rounded-2xl text-lg font-medium">
+          Clear All
+        </button>
+        <button onclick="analyzeHand()" 
+                class="flex-1 bg-green-600 hover:bg-green-700 py-4 rounded-2xl text-lg font-semibold">
+          Calculate Best Keeps
+        </button>
+      </div>
+
+      <!-- Display selected cards -->
+      <div id="selected-cards-display" class="mt-10 flex flex-wrap gap-6 justify-center min-h-[120px]"></div>
     </div>
 
     <!-- Results -->
@@ -64,22 +64,22 @@
       <h2 class="text-2xl font-bold mb-6">Your Kept Hand + Cut Card</h2>
       <div id="selected-hand" class="flex flex-wrap gap-8 mb-8"></div>
       
-      <div class="flex gap-4">
+      <div class="flex flex-col sm:flex-row gap-4">
         <button onclick="revealCut()" 
-                class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-2xl text-xl">
+                class="flex-1 bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl text-xl">
           Reveal Random Cut Card
         </button>
         <button onclick="manualCut()" 
-                class="bg-gray-700 hover:bg-gray-600 px-8 py-4 rounded-2xl text-xl">
+                class="flex-1 bg-gray-700 hover:bg-gray-600 py-4 rounded-2xl text-xl">
           Enter Cut Card Manually
         </button>
       </div>
-
+      
       <div id="score-display" class="mt-10 text-xl bg-gray-900 rounded-2xl p-6"></div>
     </div>
 
     <div class="mt-12 text-center text-sm text-gray-400">
-      Your score: <span id="my-score" class="font-bold text-3xl text-green-400">0</span>  
+      Your score: <span id="my-score" class="font-bold text-3xl text-green-400">0</span> 
       — Mom: <span id="mom-score" class="font-bold text-3xl">0</span>
       <button onclick="resetScores()" class="ml-6 text-xs underline hover:text-white">Reset Scores</button>
     </div>
