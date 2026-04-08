@@ -111,20 +111,23 @@ function scoreHand(hand4, cut) {
 
 // ==================== CARD INPUT FUNCTIONS ====================
 function renderCardInputs() {
+  // We only need to fill in cards 1 through 5 since card 0 is static in HTML
   const container = document.getElementById('card-inputs');
-  if (!container) return;
-
-  container.innerHTML = '';
-
-  for (let i = 0; i < 6; i++) {
+  
+  // Add the remaining 5 card rows
+  for (let i = 1; i < 6; i++) {
     const div = document.createElement('div');
     div.className = "flex gap-3";
     div.innerHTML = `
-      <select id="rank-${i}" class="bg-gray-700 text-white rounded-2xl flex-1 text-lg">
+      <select id="rank-${i}" class="flex-1">
         <option value="">Rank</option>
-        ${RANKS.map(r => `<option value="${r}">${r}</option>`).join('')}
+        <option value="A">A</option><option value="2">2</option><option value="3">3</option>
+        <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+        <option value="7">7</option><option value="8">8</option><option value="9">9</option>
+        <option value="T">T</option><option value="J">J</option><option value="Q">Q</option>
+        <option value="K">K</option>
       </select>
-      <select id="suit-${i}" class="bg-gray-700 text-white rounded-2xl flex-1 text-lg">
+      <select id="suit-${i}" class="flex-1">
         <option value="">Suit</option>
         <option value="h">♥ Hearts</option>
         <option value="d">♦ Diamonds</option>
