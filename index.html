@@ -23,9 +23,10 @@
       height: 58px;
       border: 2px solid #4b5563;
       border-radius: 1rem;
+      background-color: #374151;
+      color: white;
     }
 
-    /* Make selects stand out better on mobile */
     select:focus {
       border-color: #60a5fa;
       outline: none;
@@ -40,7 +41,28 @@
     <div class="bg-gray-800 rounded-3xl p-6 md:p-8 mb-10">
       <h2 class="text-2xl font-semibold mb-6">Enter Your 6 Cards</h2>
       
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8" id="card-inputs"></div>
+      <!-- Static Card Inputs - Much more reliable on mobile -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8" id="card-inputs">
+        <!-- Card 1 -->
+        <div class="flex gap-3">
+          <select id="rank-0" class="flex-1">
+            <option value="">Rank</option>
+            <option value="A">A</option><option value="2">2</option><option value="3">3</option>
+            <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+            <option value="7">7</option><option value="8">8</option><option value="9">9</option>
+            <option value="T">T</option><option value="J">J</option><option value="Q">Q</option>
+            <option value="K">K</option>
+          </select>
+          <select id="suit-0" class="flex-1">
+            <option value="">Suit</option>
+            <option value="h">♥ Hearts</option>
+            <option value="d">♦ Diamonds</option>
+            <option value="c">♣ Clubs</option>
+            <option value="s">♠ Spades</option>
+          </select>
+        </div>
+        <!-- Cards 2-6 will be added by JavaScript below for cleanliness -->
+      </div>
 
       <div class="flex flex-col sm:flex-row gap-4">
         <button onclick="clearAllCards()" 
