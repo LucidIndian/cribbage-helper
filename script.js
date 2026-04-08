@@ -54,16 +54,6 @@ function renderCardInputs() {
   }
 }
 
-// Add one more card row (up to 6)
-function addCardRow() {
-  if (selectedCards.length >= 6) {
-    alert("You can only have 6 cards in hand!");
-    return;
-  }
-  // For simplicity, we'll just re-render and let user fill the next empty row
-  renderCardInputs();
-}
-
 // Clear everything
 function clearAllCards() {
   selectedCards = [];
