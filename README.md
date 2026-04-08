@@ -22,7 +22,7 @@ Perfect for practicing or using discreetly during family games!
 
 ### How to Use
 
-1. Open the app: `https://yourusername.github.io/cribbage-helper` (replace with your actual GitHub username and repo name)
+1. Open the app: `[https://yourusername.github.io/cribbage-helper](https://lucidindian.github.io/cribbage-helper/)`
 2. Use the dropdowns to enter the **6 cards** in your hand
 3. Click **"Calculate Best Keeps"**
 4. Review the list – the top option is mathematically the best keep
@@ -42,19 +42,6 @@ Perfect for practicing or using discreetly during family games!
 - No backend, no dependencies, no build step required
 - Fully static – perfect for GitHub Pages
 
-### Deployment (Super Simple)
-
-This is a static site. To deploy:
-
-1. Put `index.html` and `script.js` in the root of your repository
-2. Go to **Repository Settings → Pages**
-3. Set Source to **Deploy from a branch** → `main` → `/ (root)`
-4. Save
-
-Your app will be live at `https://yourusername.github.io/cribbage-helper`
-
-No GitHub Actions or workflows needed!
-
 ### Future Ideas
 
 - Remove individual cards
@@ -71,4 +58,3 @@ Feel free to fork and improve! This was built to help me consistently beat my mo
 ---
 
 **Made with ❤️ for casual cribbage players who want to win.**
-
