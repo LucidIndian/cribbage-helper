@@ -2,13 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Cribbage EV Helper – Beat Mom!</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .card { font-size: 3.5rem; line-height: 1; }
     .red { color: #ef4444; }
     .big-card { font-size: 4.5rem; }
+    
+    /* Extra mobile-friendly styles for selects */
+    select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+      background-position: right 0.75rem center;
+      background-repeat: no-repeat;
+      background-size: 1.25em;
+      padding-right: 2.5rem;
+    }
   </style>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
@@ -17,24 +29,28 @@
     <h1 class="text-4xl font-bold text-center mb-8">Cribbage EV Helper – Beat Mom!</h1>
 
     <!-- Manual Card Input Section -->
-    <div class="bg-gray-800 rounded-3xl p-8 mb-10">
-      <h2 class="text-2xl font-semibold mb-6">Enter Your 6 Cards</h2>
-      
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6" id="card-inputs"></div>
+    <div class="bg-gray-800 rounded-3xl p-6 md:p-8 mb-10">
+  <h2 class="text-2xl font-semibold mb-6">Enter Your 6 Cards</h2>
+  
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6" id="card-inputs"></div>
 
-      <div class="flex gap-4">
-        <button onclick="clearAllCards()" 
-                class="flex-1 bg-red-600 hover:bg-red-700 py-4 rounded-2xl text-lg font-medium">
-          Clear All
-        </button>
-        <button onclick="analyzeHand()" 
-                class="flex-1 bg-green-600 hover:bg-green-700 py-4 rounded-2xl text-lg font-semibold">
-          Calculate Best Keeps
-        </button>
-      </div>
-
-      <!-- Display selected cards -->
-      <div id="selected-cards-display" class="mt-8 flex flex-wrap gap-6 justify-center min-h-[100px]"></div>
+  <div class="flex flex-col sm:flex-row gap-4">
+    <button onclick="addCardRow()" 
+            class="flex-1 bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl text-lg font-medium">
+      + Add Another Card
+    </button>
+    <button onclick="clearAllCards()" 
+            class="flex-1 bg-red-600 hover:bg-red-700 py-4 rounded-2xl text-lg font-medium">
+      Clear All
+    </button>
+    <button onclick="analyzeHand()" 
+            class="flex-1 bg-green-600 hover:bg-green-700 py-4 rounded-2xl text-lg font-semibold">
+      Calculate Best Keeps
+    </button>
+  </div>
+  
+    <!-- Display selected cards -->
+    <div id="selected-cards-display" class="mt-8 flex flex-wrap gap-6 justify-center min-h-[100px]"></div>
     </div>
 
     <!-- Results -->
