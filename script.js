@@ -30,7 +30,7 @@ function createDeck() {
   }
 }
 
-// ==================== IMPROVED SCORING ====================
+// ==================== FIXED SCORING FUNCTION ====================
 function scoreHand(hand4, cut) {
   const all5 = [...hand4, cut];
   let score = 0;
@@ -49,7 +49,7 @@ function scoreHand(hand4, cut) {
   countFifteens(0, 0);
   if (fifteenCount > 0) {
     score += fifteenCount * 2;
-    breakdown.push(`${fifteenCount}×15s (${fifteenCount*2} pts)`);
+    breakdown.push(`${fifteenCount}×15s (${fifteenCount * 2} pts)`);
   }
 
   // 2. Pairs
@@ -64,29 +64,29 @@ function scoreHand(hand4, cut) {
     breakdown.push(`Pairs (${pairPts} pts)`);
   }
 
-  // 3. Runs - FIXED & IMPROVED
+  // 3. Runs - FIXED VERSION
   const rankToCount = {};
   all5.forEach(c => {
     rankToCount[c.rank] = (rankToCount[c.rank] || 0) + 1;
   });
 
-  // Map ranks to numeric values for sequencing
   const rankOrder = ['A','2','3','4','5','6','7','8','9','T','J','Q','K'];
-  const numericRanks = Object.keys(rankToCount).map(r => rankOrder.indexOf(r) + 1).sort((a,b) => a - b);
+  const numeric = Object.keys(rankToCount)
+    .map(r => rankOrder.indexOf(r) + 1)
+    .sort((a, b) => a - b);
 
   let runPts = 0;
   let i = 0;
-  while (i < numericRanks.length) {
+  while (i < numeric.length) {
     let j = i;
-    while (j + 1 < numericRanks.length && numericRanks[j + 1] === numericRanks[j] + 1) {
+    while (j + 1 < numeric.length && numeric[j + 1] === numeric[j] + 1) {
       j++;
     }
     const length = j - i + 1;
     if (length >= 3) {
-      // Multiply by the product of counts for each rank in the run
       let multiplier = 1;
       for (let k = i; k <= j; k++) {
-        const rankKey = rankOrder[numericRanks[k] - 1];
+        const rankKey = rankOrder[numeric[k] - 1];
         multiplier *= rankToCount[rankKey];
       }
       runPts += length * multiplier;
