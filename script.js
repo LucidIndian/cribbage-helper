@@ -30,19 +30,16 @@ function createDeck() {
   }
 }
 
-// ==================== FIXED SCORING FUNCTION ====================
+// ==================== SCORING (unchanged - already fixed) ====================
 function scoreHand(hand4, cut) {
   const all5 = [...hand4, cut];
   let score = 0;
   let breakdown = [];
 
-  // 1. Fifteens
+  // Fifteens
   let fifteenCount = 0;
   function countFifteens(idx, sum) {
-    if (idx === 5) {
-      if (sum === 15) fifteenCount++;
-      return;
-    }
+    if (idx === 5) { if (sum === 15) fifteenCount++; return; }
     countFifteens(idx + 1, sum);
     countFifteens(idx + 1, sum + all5[idx].value);
   }
@@ -52,36 +49,27 @@ function scoreHand(hand4, cut) {
     breakdown.push(`${fifteenCount}×15s (${fifteenCount * 2} pts)`);
   }
 
-  // 2. Pairs
+  // Pairs
   const rankCount = {};
   all5.forEach(c => rankCount[c.rank] = (rankCount[c.rank] || 0) + 1);
   let pairPts = 0;
-  Object.values(rankCount).forEach(cnt => {
-    pairPts += cnt * (cnt - 1) / 2 * 2;
-  });
+  Object.values(rankCount).forEach(cnt => pairPts += cnt * (cnt - 1) / 2 * 2);
   if (pairPts > 0) {
     score += pairPts;
     breakdown.push(`Pairs (${pairPts} pts)`);
   }
 
-  // 3. Runs - FIXED VERSION
+  // Runs
   const rankToCount = {};
-  all5.forEach(c => {
-    rankToCount[c.rank] = (rankToCount[c.rank] || 0) + 1;
-  });
-
+  all5.forEach(c => rankToCount[c.rank] = (rankToCount[c.rank] || 0) + 1);
   const rankOrder = ['A','2','3','4','5','6','7','8','9','T','J','Q','K'];
-  const numeric = Object.keys(rankToCount)
-    .map(r => rankOrder.indexOf(r) + 1)
-    .sort((a, b) => a - b);
+  const numeric = Object.keys(rankToCount).map(r => rankOrder.indexOf(r) + 1).sort((a,b)=>a-b);
 
   let runPts = 0;
   let i = 0;
   while (i < numeric.length) {
     let j = i;
-    while (j + 1 < numeric.length && numeric[j + 1] === numeric[j] + 1) {
-      j++;
-    }
+    while (j + 1 < numeric.length && numeric[j + 1] === numeric[j] + 1) j++;
     const length = j - i + 1;
     if (length >= 3) {
       let multiplier = 1;
@@ -93,13 +81,12 @@ function scoreHand(hand4, cut) {
     }
     i = j + 1;
   }
-
   if (runPts > 0) {
     score += runPts;
     breakdown.push(`Runs (${runPts} pts)`);
   }
 
-  // 4. Flush
+  // Flush
   const handSuits = hand4.map(c => c.suit);
   const allSameHand = handSuits.every(s => s === handSuits[0]);
   if (allSameHand && cut.suit === handSuits[0]) {
@@ -110,7 +97,7 @@ function scoreHand(hand4, cut) {
     breakdown.push("4-card flush (4 pts)");
   }
 
-  // 5. His Nobs
+  // His Nobs
   if (hand4.some(c => c.rank === 'J' && c.suit === cut.suit)) {
     score += 1;
     breakdown.push("His nobs (1 pt)");
@@ -122,9 +109,81 @@ function scoreHand(hand4, cut) {
   };
 }
 
-// Rest of the file stays exactly the same (card input, EV calculation, UI, etc.)
-// ... (keep everything from getCombinations through resetScores unchanged)
+// ==================== CARD INPUT ====================
+function renderCardInputs() {
+  const container = document.getElementById('card-inputs');
+  container.innerHTML = '';
 
+  for (let i = 0; i < 6; i++) {
+    const div = document.createElement('div');
+    div.className = "flex gap-3";
+    div.innerHTML = `
+      <select id="rank-${i}" class="bg-gray-700 text-white rounded-2xl flex-1">
+        ${RANKS.map(r => `<option value="${r}">${r}</option>`).join('')}
+      </select>
+      <select id="suit-${i}" class="bg-gray-700 text-white rounded-2xl flex-1">
+        <option value="h">♥ Hearts</option>
+        <option value="d">♦ Diamonds</option>
+        <option value="c">♣ Clubs</option>
+        <option value="s">♠ Spades</option>
+      </select>
+    `;
+    container.appendChild(div);
+  }
+}
+
+function getCardsFromForm() {
+  selectedCards = [];
+  for (let i = 0; i < 6; i++) {
+    const rankEl = document.getElementById(`rank-${i}`);
+    const suitEl = document.getElementById(`suit-${i}`);
+    
+    if (rankEl && suitEl) {
+      const rank = rankEl.value;
+      const suit = suitEl.value;
+      if (rank && suit) {
+        selectedCards.push({
+          rank,
+          suit,
+          value: RANK_VALUES[rank],
+          display: UNICODE_CARDS[rank + suit]
+        });
+      }
+    }
+  }
+  renderSelectedCards();
+}
+
+function renderSelectedCards() {
+  const container = document.getElementById('selected-cards-display');
+  container.innerHTML = selectedCards.map(card => `
+    <div class="text-center">
+      <div class="card ${card.suit === 'h' || card.suit === 'd' ? 'red' : ''}">${card.display}</div>
+      <div class="text-xs mt-1">${card.rank}${card.suit.toUpperCase()}</div>
+    </div>
+  `).join('');
+}
+
+function clearAllCards() {
+  selectedCards = [];
+  renderSelectedCards();
+  renderCardInputs();   // Reset the dropdowns
+}
+
+function analyzeHand() {
+  getCardsFromForm();
+  
+  if (selectedCards.length !== 6) {
+    alert("Please select all 6 cards (rank + suit for each).");
+    return;
+  }
+
+  createDeck();
+  document.getElementById('results').classList.remove('hidden');
+  computeAllEVs();
+}
+
+// ==================== EV + PLAY MODE (unchanged) ====================
 function getCombinations(arr, k) {
   const result = [];
   function combine(start, combo) {
@@ -151,18 +210,12 @@ function computeAllEVs() {
     const possibleCuts = fullDeck.filter(c => !used.has(c.rank + c.suit));
 
     let totalScore = 0;
-    possibleCuts.forEach(cut => {
-      totalScore += scoreHand(keep, cut).total;
-    });
+    possibleCuts.forEach(cut => totalScore += scoreHand(keep, cut).total);
 
     const ev = (totalScore / possibleCuts.length).toFixed(2);
     const discard = selectedCards.filter(c => !keep.some(k => k.rank === c.rank && k.suit === c.suit));
 
-    evList.push({
-      keep,
-      discard,
-      ev: parseFloat(ev)
-    });
+    evList.push({ keep, discard, ev: parseFloat(ev) });
   });
 
   evList.sort((a, b) => b.ev - a.ev);
@@ -193,9 +246,6 @@ function computeAllEVs() {
   });
 }
 
-// (Keep the rest of your functions: renderCardInputs, addCardRow, clearAllCards, getCardsFromForm, 
-// renderSelectedCards, analyzeHand, selectKeep, revealCut, manualCut, finishScoring, resetScores)
-
 function selectKeep(keep, discard) {
   currentKeep = keep;
   document.getElementById('play-section').classList.remove('hidden');
@@ -210,6 +260,42 @@ function selectKeep(keep, discard) {
   `;
 }
 
-// ... (include revealCut, manualCut, finishScoring, resetScores exactly as in the previous version)
+function revealCut() {
+  const used = new Set(selectedCards.map(c => c.rank + c.suit));
+  const possible = fullDeck.filter(c => !used.has(c.rank + c.suit));
+  currentCut = possible[Math.floor(Math.random() * possible.length)];
+  finishScoring();
+}
 
+function manualCut() {
+  const input = prompt("Enter cut card (e.g. 5h, Jh, As):");
+  if (!input) return;
+  const rank = input[0].toUpperCase() === 'T' ? 'T' : input[0].toUpperCase();
+  const suit = input.slice(-1).toLowerCase();
+  currentCut = fullDeck.find(c => c.rank === rank && c.suit === suit);
+  if (!currentCut) return alert("Invalid card! Use format like 5h or Jh");
+  finishScoring();
+}
+
+function finishScoring() {
+  const { total, breakdown } = scoreHand(currentKeep, currentCut);
+  document.getElementById('score-display').innerHTML = `
+    <div class="flex justify-between items-center text-5xl mb-4">
+      <span>Cut: <span class="${currentCut.suit==='h'||currentCut.suit==='d'?'red':''}">${currentCut.display}</span></span>
+      <span class="text-emerald-400 font-bold">${total} points</span>
+    </div>
+    <div class="text-lg">${breakdown}</div>
+  `;
+  myScore += total;
+  document.getElementById('my-score').textContent = myScore;
+}
+
+function resetScores() {
+  myScore = 0;
+  momScore = 0;
+  document.getElementById('my-score').textContent = '0';
+  document.getElementById('mom-score').textContent = '0';
+}
+
+// Initialize the app
 renderCardInputs();
