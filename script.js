@@ -21,10 +21,7 @@ function createDeck() {
   for (let suit of SUITS) {
     for (let rank of RANKS) {
       fullDeck.push({
-        rank,
-        suit,
-        value: RANK_VALUES[rank],
-        display: UNICODE_CARDS[rank + suit]
+        rank, suit, value: RANK_VALUES[rank], display: UNICODE_CARDS[rank + suit]
       });
     }
   }
@@ -86,7 +83,7 @@ function scoreHand(hand4, cut) {
     breakdown.push(`Runs (${runPts} pts)`);
   }
 
-  // Flush
+  // Flush + Nobs
   const handSuits = hand4.map(c => c.suit);
   const allSameHand = handSuits.every(s => s === handSuits[0]);
   if (allSameHand && cut.suit === handSuits[0]) {
@@ -97,7 +94,6 @@ function scoreHand(hand4, cut) {
     breakdown.push("4-card flush (4 pts)");
   }
 
-  // His Nobs
   if (hand4.some(c => c.rank === 'J' && c.suit === cut.suit)) {
     score += 1;
     breakdown.push("His nobs (1 pt)");
@@ -109,23 +105,18 @@ function scoreHand(hand4, cut) {
   };
 }
 
-// ==================== CARD INPUT FUNCTIONS ====================
+// ==================== CARD INPUTS ====================
 function renderCardInputs() {
-  // We only need to fill in cards 1 through 5 since card 0 is static in HTML
   const container = document.getElementById('card-inputs');
-  
-  // Add the remaining 5 card rows
-  for (let i = 1; i < 6; i++) {
+  container.innerHTML = '';
+
+  for (let i = 0; i < 6; i++) {
     const div = document.createElement('div');
     div.className = "flex gap-3";
     div.innerHTML = `
       <select id="rank-${i}" class="flex-1">
         <option value="">Rank</option>
-        <option value="A">A</option><option value="2">2</option><option value="3">3</option>
-        <option value="4">4</option><option value="5">5</option><option value="6">6</option>
-        <option value="7">7</option><option value="8">8</option><option value="9">9</option>
-        <option value="T">T</option><option value="J">J</option><option value="Q">Q</option>
-        <option value="K">K</option>
+        ${RANKS.map(r => `<option value="${r}">${r}</option>`).join('')}
       </select>
       <select id="suit-${i}" class="flex-1">
         <option value="">Suit</option>
@@ -137,6 +128,30 @@ function renderCardInputs() {
     `;
     container.appendChild(div);
   }
+
+  // Preset: A♥ 2♥ 3♥ 4♥ 5♥ 6♥
+  presetDefaultHand();
+}
+
+function presetDefaultHand() {
+  const defaultHand = [
+    {rank: 'A', suit: 'h'},
+    {rank: '2', suit: 'h'},
+    {rank: '3', suit: 'h'},
+    {rank: '4', suit: 'h'},
+    {rank: '5', suit: 'h'},
+    {rank: '6', suit: 'h'}
+  ];
+
+  defaultHand.forEach((card, i) => {
+    const rankSelect = document.getElementById(`rank-${i}`);
+    const suitSelect = document.getElementById(`suit-${i}`);
+    if (rankSelect) rankSelect.value = card.rank;
+    if (suitSelect) suitSelect.value = card.suit;
+  });
+
+  // Show the preset cards visually
+  getCardsFromForm();
 }
 
 function getCardsFromForm() {
@@ -144,7 +159,6 @@ function getCardsFromForm() {
   for (let i = 0; i < 6; i++) {
     const rankEl = document.getElementById(`rank-${i}`);
     const suitEl = document.getElementById(`suit-${i}`);
-    
     if (rankEl && suitEl && rankEl.value && suitEl.value) {
       const rank = rankEl.value;
       const suit = suitEl.value;
@@ -161,7 +175,6 @@ function getCardsFromForm() {
 
 function renderSelectedCards() {
   const container = document.getElementById('selected-cards-display');
-  if (!container) return;
   container.innerHTML = selectedCards.map(card => `
     <div class="text-center">
       <div class="card ${card.suit === 'h' || card.suit === 'd' ? 'red' : ''}">${card.display}</div>
@@ -172,8 +185,16 @@ function renderSelectedCards() {
 
 function clearAllCards() {
   selectedCards = [];
+  
+  // Reset all dropdowns to default
+  for (let i = 0; i < 6; i++) {
+    const rankEl = document.getElementById(`rank-${i}`);
+    const suitEl = document.getElementById(`suit-${i}`);
+    if (rankEl) rankEl.value = "";
+    if (suitEl) suitEl.value = "";
+  }
+  
   renderSelectedCards();
-  renderCardInputs();
 }
 
 function analyzeHand() {
@@ -189,7 +210,7 @@ function analyzeHand() {
   computeAllEVs();
 }
 
-// ==================== EV CALCULATION ====================
+// ==================== EV + PLAY MODE (unchanged from your previous version) ====================
 function getCombinations(arr, k) {
   const result = [];
   function combine(start, combo) {
@@ -206,7 +227,6 @@ function getCombinations(arr, k) {
 
 function computeAllEVs() {
   const container = document.getElementById('keep-list');
-  if (!container) return;
   container.innerHTML = '';
 
   const combos = getCombinations(selectedCards, 4);
@@ -217,9 +237,7 @@ function computeAllEVs() {
     const possibleCuts = fullDeck.filter(c => !used.has(c.rank + c.suit));
 
     let totalScore = 0;
-    possibleCuts.forEach(cut => {
-      totalScore += scoreHand(keep, cut).total;
-    });
+    possibleCuts.forEach(cut => totalScore += scoreHand(keep, cut).total);
 
     const ev = (totalScore / possibleCuts.length).toFixed(2);
     const discard = selectedCards.filter(c => !keep.some(k => k.rank === c.rank && k.suit === c.suit));
@@ -306,7 +324,7 @@ function resetScores() {
   document.getElementById('mom-score').textContent = '0';
 }
 
-// ==================== INITIALIZE ====================
+// Initialize
 window.onload = function() {
   renderCardInputs();
 };
