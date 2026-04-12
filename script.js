@@ -182,16 +182,11 @@ function renderSelectedCards() {
   `).join('');
 }
 
-function clearAllCards() {
+function resetCards() {
   selectedCards = [];
   
   // Reset all dropdowns to default
-  for (let i = 0; i < 6; i++) {
-    const rankEl = document.getElementById(`rank-${i}`);
-    const suitEl = document.getElementById(`suit-${i}`);
-    if (rankEl) rankEl.value = "";
-    if (suitEl) suitEl.value = "";
-  }
+  presetDefaultHand(); 
   
   renderSelectedCards();
 }
