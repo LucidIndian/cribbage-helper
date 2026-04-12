@@ -177,7 +177,7 @@ function renderSelectedCards() {
   container.innerHTML = selectedCards.map(card => `
     <div class="text-center">
       <div class="card ${card.suit === 'h' || card.suit === 'd' ? 'red' : ''}">${card.display}</div>
-      <div class="text-xs mt-1">${card.rank}${card.suit.toUpperCase()}</div>
+      <div class="text-s mt-1">${card.rank}${card.suit.toUpperCase()}</div>
     </div>
   `).join('');
 }
