@@ -243,7 +243,7 @@ function computeAllEVs() {
 
   evList.forEach(item => {
     const div = document.createElement('div');
-    div.className = `bg-gray-700 hover:bg-gray-600 rounded-3xl p-6 cursor-pointer transition`;
+    div.className = `bg-gray-700 hover:bg-gray-500 rounded-3xl p-6 cursor-pointer transition`;
     div.innerHTML = `
       <div class="flex items-center justify-between">
         <div>
@@ -257,7 +257,7 @@ function computeAllEVs() {
           </div>
         </div>
         <div class="text-right">
-          <div class="text-5xl font-bold text-emerald-400">${item.ev}</div>
+          <div class="text-4xl font-bold text-emerald-400">${item.ev}</div>
           <div class="text-xs uppercase tracking-widest">Expected Value</div>
         </div>
       </div>
