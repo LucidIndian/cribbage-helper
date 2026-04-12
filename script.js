@@ -281,13 +281,6 @@ function selectKeep(keep, discard) {
   `;
 }
 
-function revealCut() {
-  const used = new Set(selectedCards.map(c => c.rank + c.suit));
-  const possible = fullDeck.filter(c => !used.has(c.rank + c.suit));
-  currentCut = possible[Math.floor(Math.random() * possible.length)];
-  finishScoring();
-}
-
 function manualCut() {
   const input = prompt("Enter cut card (e.g. 5h, Jh, As):");
   if (!input) return;
