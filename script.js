@@ -3,7 +3,7 @@ const RANKS = ['A','2','3','4','5','6','7','8','9','T','J','Q','K'];
 const RANK_VALUES = {A:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9,T:10,J:10,Q:10,K:10};
 
 const UNICODE_CARDS = {
-  'Ah':'🂡','2h':'🂢','3h':'🂣','4h':'🂤','5h':'🂥','6h':'🂦','7h':'🂧','8h':'🂨','9h':'🂩','Th':'🂪','Jh':'🂫','Qh':'🂭','Kh':'🂮',
+  'Ah':'🂱','2h':'🂲','3h':'🂳','4h':'🂴','5h':'🂵','6h':'🂶','7h':'🂷','8h':'🂸','9h':'🂹','Th':'🂺','Jh':'🂻','Qh':'🂽','Kh':'🂾',
   'Ad':'🃁','2d':'🃂','3d':'🃃','4d':'🃄','5d':'🃅','6d':'🃆','7d':'🃇','8d':'🃈','9d':'🃉','Td':'🃊','Jd':'🃋','Qd':'🃍','Kd':'🃎',
   'Ac':'🃑','2c':'🃒','3c':'🃓','4c':'🃔','5c':'🃕','6c':'🃖','7c':'🃗','8c':'🃘','9c':'🃙','Tc':'🃚','Jc':'🃛','Qc':'🃝','Kc':'🃞',
   'As':'🂡','2s':'🂢','3s':'🂣','4s':'🂤','5s':'🂥','6s':'🂦','7s':'🂧','8s':'🂨','9s':'🂩','Ts':'🂪','Js':'🂫','Qs':'🂭','Ks':'🂮'
@@ -96,7 +96,7 @@ function scoreHand(hand4, cut) {
 
   if (hand4.some(c => c.rank === 'J' && c.suit === cut.suit)) {
     score += 1;
-    breakdown.push("His nobs (1 pt)");
+    breakdown.push("Nobs (1 pt)");
   }
 
   return {
@@ -119,7 +119,6 @@ function renderCardInputs() {
         ${RANKS.map(r => `<option value="${r}">${r}</option>`).join('')}
       </select>
       <select id="suit-${i}" class="flex-1">
-        <option value="">Suit</option>
         <option value="h">♥ Hearts</option>
         <option value="d">♦ Diamonds</option>
         <option value="c">♣ Clubs</option>
