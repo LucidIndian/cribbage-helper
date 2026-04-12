@@ -241,7 +241,7 @@ function computeAllEVs() {
 
   evList.sort((a, b) => b.ev - a.ev);
 
-  evList.forEach(item => {
+  evList.slice(0, 5).forEach(item => {
     const div = document.createElement('div');
     div.className = `bg-gray-700 hover:bg-gray-500 rounded-3xl p-6 cursor-pointer transition`;
     div.innerHTML = `
