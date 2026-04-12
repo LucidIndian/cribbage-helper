@@ -251,7 +251,7 @@ function computeAllEVs() {
             `<span class="big-card ${c.suit==='h'||c.suit==='d'?'red':''}">${c.display}</span>`
           ).join('')}</div>
           <div class="text-red-400 text-xl">
-            Discard: <span class="text-5xl">${item.discard.map(c => 
+            Discard: <span class="text-6xl">${item.discard.map(c => 
               `<span class="${c.suit==='h'||c.suit==='d'?'red':''}">${c.display}</span>`
             ).join(' ')}</span>
           </div>
