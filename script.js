@@ -233,7 +233,7 @@ function computeAllEVs() {
     let totalScore = 0;
     possibleCuts.forEach(cut => totalScore += scoreHand(keep, cut).total);
 
-    const ev = (totalScore / possibleCuts.length).toFixed(2);
+    const ev = (totalScore / possibleCuts.length).toFixed(1);
     const discard = selectedCards.filter(c => !keep.some(k => k.rank === c.rank && k.suit === c.suit));
 
     evList.push({ keep, discard, ev: parseFloat(ev) });
