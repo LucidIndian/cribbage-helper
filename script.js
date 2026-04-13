@@ -247,7 +247,7 @@ function computeAllEVs() {
     div.innerHTML = `
       <div class="flex items-center justify-between">
         <div>
-          <div class="text-6xl flex gap-6 mb-3">${item.keep.map(c => 
+          <div class="text-5xl flex gap-3 mb-3">${item.keep.map(c => 
             `<span class="big-card ${c.suit==='h'||c.suit==='d'?'red':''}">${c.display}</span>`
           ).join('')}</div>
           <div class="text-red-400 text-2xl">
@@ -257,7 +257,7 @@ function computeAllEVs() {
           </div>
         </div>
         <div class="text-right">
-          <div class="text-4xl font-bold text-emerald-400">${item.ev}</div>
+          <div class="text-5xl font-bold text-emerald-400">${item.ev}</div>
           <div class="text-xs uppercase tracking-widest">Expected Value</div>
         </div>
       </div>
