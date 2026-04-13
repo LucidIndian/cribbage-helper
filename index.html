@@ -40,9 +40,9 @@
     <div class="bg-gray-800 rounded-3xl p-6 md:p-8 mb-10">
       <h2 class="text-2xl font-semibold mb-6">Enter Your 6 Cards</h2>
       
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8 text-center" id="card-inputs"></div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-8 text-center" id="card-inputs"></div>
 
-      <div class="flex flex-col sm:flex-row gap-4">
+      <div class="flex flex-col sm:flex-row gap-3">
         <button onclick="resetCards()" 
                 class="flex-1 bg-red-600 hover:bg-red-700 py-4 rounded-2xl text-lg font-medium">
           Reset my cards
@@ -53,7 +53,7 @@
         </button>
       </div>
 
-      <div id="selected-cards-display" class="mt-10 flex flex-nowrap gap-4 justify-center min-h-[120px]"></div>
+      <div id="selected-cards-display" class="mt-10 flex flex-nowrap gap-3 justify-center min-h-[120px]"></div>
     </div>
 
     <!-- Results -->
@@ -65,9 +65,9 @@
     <!-- Play Section -->
     <div id="play-section" class="hidden mt-12 bg-gray-800 rounded-3xl p-8">
       <h2 class="text-2xl font-bold mb-6">Your Kept Hand + Cut Card</h2>
-      <div id="selected-hand" class="flex flex-wrap gap-8 mb-8"></div>
+      <div id="selected-hand" class="flex flex-wrap gap-5 mb-8"></div>
       
-      <div class="flex flex-col sm:flex-row gap-4">
+      <div class="flex flex-col sm:flex-row gap-3">
         <button onclick="manualCut()" 
                 class="flex-1 bg-gray-700 hover:bg-gray-600 py-4 rounded-2xl text-xl font-medium">
           Enter Cut Card Manually
