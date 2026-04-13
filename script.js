@@ -252,7 +252,7 @@ function computeAllEVs() {
           ).join('')}</div>
           <div class="text-red-400 text-2xl">
             Discard: <span class="text-6xl">${item.discard.map(c => 
-              `<span class="${c.suit==='h'||c.suit==='d'?'red':''}">${c.display}</span>`
+              `<span class="big-card ${c.suit==='h'||c.suit==='d'?'red':''}">${c.display}</span>`
             ).join(' ')}</span>
           </div>
         </div>
