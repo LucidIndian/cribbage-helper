@@ -32,6 +32,8 @@ Perfect for practicing or using discreetly during family games!
 6. Reveal a cut card or type one manually to see how many points you actually score
 7. Keep track of the running score against your opponent
 
+![Cribbage Helper Screenshot](./assets/Cribbage_EV_Helper_–_Beat_Mom_.jpg)
+
 ### Technologies
 
 - HTML + CSS + JavaScript
