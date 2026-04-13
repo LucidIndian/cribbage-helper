@@ -275,7 +275,7 @@ function selectKeep(keep, discard) {
   handDiv.innerHTML = `
     <div>
       <p class="text-lg mb-3">Your 4-card hand:</p>
-      <div class="flex gap-8">${keep.map(c => 
+      <div class="flex gap-5">${keep.map(c => 
         `<span class="text-8xl ${c.suit==='h'||c.suit==='d'?'red':''}">${c.display}</span>`
       ).join('')}</div>
     </div>
