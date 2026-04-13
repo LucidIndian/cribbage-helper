@@ -257,7 +257,7 @@ function computeAllEVs() {
           </div>
         </div>
         <div class="text-right">
-          <div class="text-5xl font-bold text-emerald-400">${item.ev}</div>
+          <div class="text-4xl font-bold text-emerald-400">${item.ev}</div>
           <div class="text-xs uppercase tracking-widest">Expected Value</div>
         </div>
       </div>
