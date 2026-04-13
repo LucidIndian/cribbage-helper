@@ -112,7 +112,7 @@ function renderCardInputs() {
 
   for (let i = 0; i < 6; i++) {
     const div = document.createElement('div');
-    div.className = "flex gap-2";
+    div.className = "flex gap-1";
     div.innerHTML = `
       <select id="rank-${i}" class="flex-1">
         <option value="">Rank</option>
@@ -247,7 +247,7 @@ function computeAllEVs() {
     div.innerHTML = `
       <div class="flex items-center justify-between">
         <div>
-          <div class="text-5xl flex gap-2 mb-3">${item.keep.map(c => 
+          <div class="text-5xl flex gap-1 mb-3">${item.keep.map(c => 
             `<span class="big-card ${c.suit==='h'||c.suit==='d'?'red':''}">${c.display}</span>`
           ).join('')}</div>
           <div class="text-red-400 text-2xl">
@@ -275,7 +275,7 @@ function selectKeep(keep, discard) {
   handDiv.innerHTML = `
     <div>
       <p class="text-lg mb-3">Your 4-card hand:</p>
-      <div class="flex gap-4">${keep.map(c => 
+      <div class="flex gap-1">${keep.map(c => 
         `<span class="text-8xl ${c.suit==='h'||c.suit==='d'?'red':''}">${c.display}</span>`
       ).join('')}</div>
     </div>
