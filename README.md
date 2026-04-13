@@ -1,4 +1,6 @@
-# Cribbage EV Helper – Beat Mom! 🃏
+# Cribbage Helper! 🃏
+
+Play at: [https://lucidindian.github.io/cribbage-helper/](https://lucidindian.github.io/cribbage-helper/)
 
 A simple, powerful cribbage hand analyzer that helps you choose the **best 4 cards to keep** by calculating the **true expected value (EV)** for every possible keep.
 
@@ -22,7 +24,7 @@ Perfect for practicing or using discreetly during family games!
 
 ### How to Use
 
-1. Open the app: `[https://yourusername.github.io/cribbage-helper](https://lucidindian.github.io/cribbage-helper/)`
+1. Open the app: [https://yourusername.github.io/cribbage-helper](https://lucidindian.github.io/cribbage-helper/)
 2. Use the dropdowns to enter the **6 cards** in your hand
 3. Click **"Calculate Best Keeps"**
 4. Review the list – the top option is mathematically the best keep
@@ -30,13 +32,9 @@ Perfect for practicing or using discreetly during family games!
 6. Reveal a cut card or type one manually to see how many points you actually score
 7. Keep track of the running score against your opponent
 
-### Screenshots
-
-*(Add screenshots here later – e.g. card input section, results list, and play mode)*
-
 ### Technologies
 
-- Pure HTML + CSS + JavaScript
+- HTML + CSS + JavaScript
 - Tailwind CSS (via CDN)
 - Unicode playing card symbols
 - No backend, no dependencies, no build step required
@@ -47,13 +45,13 @@ Perfect for practicing or using discreetly during family games!
 - Remove individual cards
 - Prevent duplicate card selection
 - "Random Deal" button for practice
-- Save favorite hands
 - Pegging phase helper
+- Crib considerations
 - Dark/light mode toggle
 
 ### Contributing
 
-Feel free to fork and improve! This was built to help me consistently beat my mom at cribbage.
+Feel free to make a pull request or fork and improve! This was built to help me consistently beat my mom at cribbage.
 
 ---
 
