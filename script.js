@@ -14,7 +14,7 @@ let fullDeck = [];
 let currentKeep = null;
 let currentCut = null;
 let myScore = 0;
-let momScore = 0;
+// let momScore = 0;
 
 function createDeck() {
   fullDeck = [];
@@ -307,7 +307,7 @@ function finishScoring() {
 
 function resetScores() {
   myScore = 0;
-  momScore = 0;
+  // momScore = 0;
   document.getElementById('my-score').textContent = '0';
   document.getElementById('mom-score').textContent = '0';
 }
